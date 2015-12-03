@@ -1,23 +1,23 @@
 # PARTIO SOFTWARE
 # Copyright 2010 Disney Enterprises, Inc. All rights reserved
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
-# 
+#
 # * Redistributions of source code must retain the above copyright
 # notice, this list of conditions and the following disclaimer.
-# 
+#
 # * Redistributions in binary form must reproduce the above copyright
 # notice, this list of conditions and the following disclaimer in
 # the documentation and/or other materials provided with the
 # distribution.
-# 
+#
 # * The names "Disney", "Walt Disney Pictures", "Walt Disney Animation
 # Studios" or the names of its contributors may NOT be used to
 # endorse or promote products derived from this software without
 # specific prior written permission from Walt Disney Pictures.
-# 
+#
 # Disclaimer: THIS SOFTWARE IS PROVIDED BY WALT DISNEY PICTURES AND
 # CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
 # BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -35,7 +35,7 @@ find_package(Doxygen)
 
 IF(DOXYGEN_FOUND)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-  FILE(GLOB (DOCUMENTED_FILES ${CMAKE_PROJECT_DIR}/src/lib/*.h))
+  FILE(GLOB DOCUMENTED_FILES ${PROJECT_SOURCE_DIR}/src/lib/*.h)
 
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/doxygen.txt
@@ -43,8 +43,10 @@ IF(DOXYGEN_FOUND)
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
 
-  add_custom_target(doc ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/doxygen.txt)
-  add_dependencies(doc DOCUMENTED_FILES)
+  add_custom_target(doc ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/doxygen.txt )
+  message(STATUS "path ${PROJECT_SOURCE_DIR}")
+  message(STATUS "files ${DOCUMENTED_FILES}")
+  #add_dependencies(doc ${DOCUMENTED_FILES})
 
   INSTALL( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html/ DESTINATION share/doc/partio )
 ENDIF(DOXYGEN_FOUND)
